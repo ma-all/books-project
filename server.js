@@ -31,7 +31,7 @@ app.use(session({ //handles the session
 }))
 
 app.get('/', (req, res) => {
-    res.send('test route')
+    res.render('home.ejs')
 })
 
 app.listen(port, () => {
