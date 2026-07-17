@@ -11,7 +11,7 @@ const morgan = require('morgan')
 const session = require('express-session') //manage user sessions 
 const { MongoStore } = require('connect-mongo')
 
-
+const authCtrl = require('./controllers/auth')
 
 const port = process.env.PORT ? process.env.PORT : '3000'
 
@@ -31,6 +31,10 @@ app.use(session({ //handles the session
         mongoUrl: process.env.MONGODB_URI
     })
 }))
+
+//auth  
+app.get('/auth/sign-up', authCtrl.signUpForm)
+app.post('/auth/sign-up', authCtrl.signUp)
 
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {
