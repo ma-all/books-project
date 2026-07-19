@@ -46,7 +46,7 @@ app.post('/auth/sign-in', authCtrl.signIn)
 
 //books
 //adding book
-app.get('/book/new.ejs', userIsSigned, bookCtrl.addBookForm)
+app.get('/books/new', userIsSigned, bookCtrl.addBookForm)
 
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {
