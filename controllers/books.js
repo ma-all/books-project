@@ -89,8 +89,19 @@ const updateBook = async (req, res) => {
     res.redirect(`/books/${req.params.bookId}`)
 }
 
+const removeBook = async (req, res) => {
+    const bookFound = await Book.findById(req.params.bookId)
+
+    if(bookFound.user.equals(req.session.user._id)) {
+        await Book.findByIdAndDelete(req.params.bookId)
+        res.redirect('/books')
+    } else {
+        res.send('no removing')
+    }
+}
+
 module.exports = {
-    addBookForm, addBook, index, showBook, editBook, updateBook,
+    addBookForm, addBook, index, showBook, editBook, updateBook, removeBook,
 }
 
 //CODE GRAVEYARD

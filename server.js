@@ -64,6 +64,9 @@ app.get('/books/:bookId', userIsSigned, bookCtrl.showBook)
 app.get('/books/:bookId/edit', userIsSigned, bookCtrl.editBook)
 app.put('/books/:bookId', userIsSigned, uploadimages.single('image'), bookCtrl.updateBook)
 
+//deleting
+app.delete('/books/:bookId', userIsSigned, bookCtrl.removeBook)
+
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {
         user: req.session.user
