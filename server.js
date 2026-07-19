@@ -11,8 +11,11 @@ const morgan = require('morgan')
 const session = require('express-session') //manage user sessions 
 const { MongoStore } = require('connect-mongo')
 
+//needed to check if user is signed in or not
+const userIsSigned = require('./middleware/is-user-signed-in')
+
 const authCtrl = require('./controllers/auth')
-// const bookCtrl = require('./controllers/books')
+const bookCtrl = require('./controllers/books')
 
 const port = process.env.PORT ? process.env.PORT : '3000'
 
@@ -40,6 +43,10 @@ app.post('/auth/sign-up', authCtrl.signUp)
 //sign in
 app.get('/auth/sign-in', authCtrl.signInForm)
 app.post('/auth/sign-in', authCtrl.signIn)
+
+//books
+//adding book
+// app.get('/book/new.ejs',)
 
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {
