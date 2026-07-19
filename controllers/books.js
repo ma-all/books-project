@@ -1,5 +1,6 @@
 const Book = require('../models/book')
 const cloudinary = require('../config/cloudinary')
+const uploadimages = require('../config/multer')
 
 const addBookForm = (req, res) => {
     res.render('books/new.ejs')
@@ -59,6 +60,37 @@ const showBook = async (req, res) => {
     })
 }
 
+const editBook = async (req, res) => {
+    const bookFound = await Book.findById(req.params.bookId)
+    res.render('books/edit.ejs', {
+        bookFound,
+    })
+}
+
+const updateBook = async (req, res) => {
+    const bookFound = await Book.findById(req.params.bookId)
+    const oldPublicId = bookFound.image?.publicId
+
+    let bookData = {}
+    bookData.user = req.session.user._id
+    bookData.title = req.body.title
+    bookData.author = req.body.author
+    bookData.pages = req.body.pages
+    bookData.readingStatus = req.body.readingStatus
+
+    if(req.file) {
+        const addedImg = await uploadimages(req.file.buffer)
+        bookFound.image = {
+            url: addedImg.secure_url,
+            publicId: addedImg.public_id,
+        }
+    }
+
+    await bookFound.save()
+    await Book.findByIdAndUpdate(req.params.bookId, bookData)
+    res.redirect(`/books/${req.params.bookId}`)
+}
+
 module.exports = {
-    addBookForm, addBook, index, showBook,
+    addBookForm, addBook, index, showBook, editBook, updateBook,
 }

@@ -57,7 +57,12 @@ app.post('/books', userIsSigned, uploadimages.single('image'), bookCtrl.addBook)
 //displays all books
 app.get('/books', userIsSigned, bookCtrl.index)
 
+//shows a book details
 app.get('/books/:bookId', userIsSigned, bookCtrl.showBook)
+
+//editing
+app.get('/books/:bookId/edit', userIsSigned, bookCtrl.editBook)
+app.put('/books/:bookId', userIsSigned, uploadimages.single('image'), bookCtrl.updateBook)
 
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {
