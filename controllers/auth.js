@@ -52,11 +52,17 @@ const signIn = async (req, res) => {
         _id: allowUser._id
     }
     req.session.save(()=> {
-        res.redirect('/signed-home.ejs')
+        res.redirect('/dashboard.ejs')
     })
 
 }
 
+const signOut = async (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/')
+    })
+}
+
 module.exports = {
-    signUpForm, signUp, signInForm, signIn,
+    signUpForm, signUp, signInForm, signIn, signOut,
 }
