@@ -4,8 +4,7 @@
 
     <% if (reviews && reviews.length > 0) { %>
         <% reviews.forEach(review => {  %>
-            <p>Title: <%= bookFound.title %></p>
-            
+            <p>Review of: <%= review.book.title %></p>
             <p>Rating: </p>
             <% if(review.rating === 'five') { %> ⭐⭐⭐⭐⭐
             <% } else if (review.rating === 'four') { %> ⭐⭐⭐⭐

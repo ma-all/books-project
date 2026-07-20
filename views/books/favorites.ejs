@@ -1,0 +1,19 @@
+<%- include('../partials/navbar') %>
+    
+    <p>My Favorite Books</p>
+
+    <% if (faveBook && faveBook.length > 0) { %>
+        <% faveBook.forEach(book => {  %>
+            <p>Title: <%= book.title %></p>
+            <a href="/books/<%= book._id %>">View Book Details</a>
+
+            <form action="/books/<%= book._id %>/favorites?_method=DELETE" method="post">
+                <button type="submit">Remove from favorites</button>
+            </form>
+        <% }) %>
+    <% } else { %>
+        <p> You dont have any favorite books!</p>
+        <a href="/books">Add favorite</a>
+    <% } %>
+</body>
+</html>

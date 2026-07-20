@@ -6,13 +6,24 @@
     <p>Pages: <%= bookFound.pages %></p>
     <p>Reading Status: <%= bookFound.readingStatus %></p>
     
+    <!--edit-->
     <a href="/books/<%= bookFound._id %>/edit">
         <button type="submit">Edit <%= bookFound.title %></button>
     </a>
 
+    <!--delete-->
     <form action="/books/<%= bookFound._id %>?_method=DELETE" method="post">
         <button type="submit">Remove <%= bookFound.title %></button>
     </form>
+
+    <!--fave-->
+    <% if (!bookFound.favoriteByUser && !bookFound.favoriteByUser.includes(req.session.user._id)) { %>
+        <p>Book is already added to favorites!</p>
+    <% } else { %>
+        <form action="/books/<%= bookFound._id %>/favorites" method="post">
+            <button type="submit">Add to Favorites!</button>
+        </form>
+    <% } %>
 
     <% if (bookFound.readingStatus === 'Done Reading') { %>
         <section id="reviewSection">

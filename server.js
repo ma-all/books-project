@@ -55,10 +55,18 @@ app.post('/auth/sign-in', authCtrl.signIn)
 app.get('/books/new', userIsSigned, bookCtrl.addBookForm)
 app.post('/books/create', userIsSigned, uploadimages.single('image'), bookCtrl.addBook)
 
+//reviews
+app.get('/books/reviews', userIsSigned, reviewCtrl.showReview)
+
 //displays all books
 app.get('/books', userIsSigned, bookCtrl.index)
 //for status
 app.post('/books', userIsSigned, bookCtrl.index)
+
+//favorites
+app.post('/books/:bookId/favorites', userIsSigned, bookCtrl.addFave)
+app.get('/books/favorites', userIsSigned, bookCtrl.showFave)
+
 
 //shows a book details
 app.get('/books/:bookId', userIsSigned, bookCtrl.showBook)
@@ -71,9 +79,13 @@ app.put('/books/:bookId', userIsSigned, uploadimages.single('image'), bookCtrl.u
 app.delete('/books/:bookId', userIsSigned, bookCtrl.removeBook)
 
 //reviews
-//add review
+//add reviews
 app.post('/books/:bookId/reviews', userIsSigned, reviewCtrl.reviewBook)
 app.get('/books/:bookId/reviews', userIsSigned, reviewCtrl.showReview)
+
+//faves delete
+app.delete('/books/:bookId/favorites', userIsSigned, bookCtrl.removeFave)
+
 
 app.get('/', (req, res) => {
     res.render('signed-home.ejs', {

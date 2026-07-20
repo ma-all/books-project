@@ -24,10 +24,11 @@
         </select>
         <button type="submit">Filter</button>
     </form>
+
+    <a href="/books/new">Add New Book</a>
     
     <% if(allBooks.length === 0) { %>
         <p>You don't have any books!</p>
-        <a href="books/new">Add Book</a>
     <% } else { %>
         <ul>
             <% allBooks.forEach((book) => { %>

@@ -73,6 +73,7 @@ const showBook = async (req, res) => {
     res.render('books/show.ejs', {
         bookFound,
         reviews,
+        req,
     })
 }
 
@@ -105,6 +106,29 @@ const updateBook = async (req, res) => {
     res.redirect(`/books/${req.params.bookId}`)
 }
 
+const addFave = async (req, res) => {
+    await Book.findByIdAndUpdate(req.params.bookId, {
+        $push: {favoriteByUser: req.session.user._id}
+    })
+    
+    res.redirect('/books/favorites')
+}
+
+const showFave = async (req, res) => {
+    const faveBook = await Book.find({ favoriteByUser: req.session.user._id })
+    res.render('books/favorites.ejs', {
+        faveBook,
+    })
+}
+
+const removeFave = async (req, res) => {
+    await Book.findByIdAndUpdate(req.params.bookId, {
+        $pull: {favoriteByUser: req.session.user._id}
+    })
+
+    res.redirect('/books/favorites')
+}
+
 const removeBook = async (req, res) => {
     const bookFound = await Book.findById(req.params.bookId)
 
@@ -117,7 +141,7 @@ const removeBook = async (req, res) => {
 }
 
 module.exports = {
-    addBookForm, addBook, index, showBook, editBook, updateBook, removeBook,
+    addBookForm, addBook, index, showBook, editBook, updateBook, removeBook, addFave, showFave, removeFave,
 }
 
 //CODE GRAVEYARD

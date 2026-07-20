@@ -15,11 +15,19 @@ const reviewBook = async (req, res) => {
 }
 
 const showReview = async (req, res) => {
-    const bookFound = await Book.findById(req.params.bookId)
-    const reviews = await Review.find({ book: req.params.bookId}).populate('userRev')
+    // const bookFound = await Book.findById(req.params.bookId)
+    const allreviews = await Review.find({ userRev: req.session.user._id}).populate('book').populate('userRev')
+
+    const reviews = allreviews.map(review => {
+        const reviewObject = review.toObject()
+        if(!reviewObject.book) {
+            reviewObject.book = {title: 'Book title is unknow.'}
+        }
+        return reviewObject
+    })
 
     res.render('books/reviewsPage.ejs', {
-        bookFound,
+        // bookFound,
         reviews,
     })
 }
