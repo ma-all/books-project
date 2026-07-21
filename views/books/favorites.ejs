@@ -4,16 +4,16 @@
 
     <div class="favorite-section">
         <% if (faveBook && faveBook.length > 0) { %>
-            <div class="favorite-card">
                 <% faveBook.forEach(book => {  %>
+                    <div class="favorite-card">
                     <p>Title: <%= book.title %></p>
                     <a href="/books/<%= book._id %>">View Book Details</a>
 
                     <form action="/books/<%= book._id %>/favorites?_method=DELETE" method="post">
                         <button type="submit">Remove from favorites</button>
                     </form>
+                </div>
                 <% }) %>
-            </div>
         <% } else { %>
             <p> You dont have any favorite books!</p>
             <a href="/books">Add favorite</a>

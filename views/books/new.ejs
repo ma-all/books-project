@@ -1,16 +1,22 @@
 <%- include('../partials/navbar') %>
-
+<center>
     <h1>Add a New Book</h1>
     
     <form action="/books/create" method="post" enctype="multipart/form-data">
         <label>Title: </label>
         <input type="text" name="title"/>
 
+        <br>
+
         <label>Author: </label>
         <input type="text" name="author"/>
 
+        <br>
+
         <label>Pages: </label>
         <input type="number" name="pages" min="0"/>
+
+        <br>
 
         <label>Reading Status: </label>
         <select name="readingStatus" id="readingStatus">
@@ -19,10 +25,15 @@
             <option value="To Be Read">To Be Read</option>
         </select>
 
+        <br>
+
         <label>Image: </label>
         <input type="file" name="image" accept="image/jpeg,image/png" required/>
 
+        <br>
+
         <button type="submit">Submit</button>
     </form>
+</center>
 </body>
 </html>

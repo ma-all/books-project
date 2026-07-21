@@ -1,7 +1,7 @@
 <%- include('../partials/navbar') %>
-
+<center>
     <h1><%= bookFound.title %></h1>
-    <img src="<%= bookFound.image.url %>" width="100">
+    <img src="<%= bookFound.image.url %>" width="100" class="book-img">
     <p>Author: <%= bookFound.author %></p>
     <p>Pages: <%= bookFound.pages %></p>
     <p>Reading Status: <%= bookFound.readingStatus %></p>
@@ -18,7 +18,7 @@
 
     <!--fave-->
     <% if (bookFound.favoriteByUser && bookFound.favoriteByUser.includes(req.session.user._id)) { %>
-        <p>Book is already added to favorites!</p>
+        <p class="centering">Book is already added to favorites!</p>
     <% } else { %>
         <form action="/books/<%= bookFound._id %>/favorites" method="post">
             <button type="submit">Add to Favorites!</button>
@@ -39,12 +39,14 @@
                         <option value="one">⭐</option>
                     </select>
                     <br>
+                    <br>
                     <textarea name="comment" id="comment" rows="3" required></textarea>
+                    <br>
                     <button type="submit">Post Review</button>
                 </form>
             </div>
         </section>
     <% } %>
-    
+</center>
 </body>
 </html>
